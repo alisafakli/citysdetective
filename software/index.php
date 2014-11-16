@@ -3,7 +3,7 @@
 header('Content-Type: application/json; charset=UTF-8');
 error_reporting(E_ALL ^ E_DEPRECATED);
 
-
+// if statement
 if (isset($_POST['tag']) && $_POST['tag'] != '') {
     // get tag
     $tag = $_POST['tag'];
