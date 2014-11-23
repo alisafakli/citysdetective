@@ -85,7 +85,7 @@ if (isset($_POST['tag']) && $_POST['tag'] != '') {
                 echo json_encode($response);
             } else {
                 $response["error"] = 1;
-                $response["error_msg"] = "E-mail address already exist!";
+                $response["error_msg"] = "Error!! Cannot Upload";
                 echo json_encode($response);
             }
         }
