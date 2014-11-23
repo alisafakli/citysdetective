@@ -63,6 +63,19 @@ class Db_Functions_cd{
        }
    }
 
+    function saveComplaint($image_path,$aciklama,$lat,$long,$kategori_id,$kullanici_id,$lokasyon_id){
+
+        $result = mysql_query("INSERT INTO sikayet (sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,kategori_id,kullanici_id,lokasyon_id) VALUES ('$image_path','$aciklama','$lat','$long','$kategori_id','$kullanici_id','$lokasyon_id')") or die(mysql_error());
+
+        if($result){
+
+            return $result;//mysql_fetch_array($result);
+        } else {
+            return false;
+
+        }
+    }
+
 
 	
 }

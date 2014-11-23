@@ -3,7 +3,7 @@
 header('Content-Type: application/json; charset=UTF-8');
 error_reporting(E_ALL ^ E_DEPRECATED);
 
-// if statement
+
 if (isset($_POST['tag']) && $_POST['tag'] != '') {
     // get tag
     $tag = $_POST['tag'];
@@ -60,6 +60,36 @@ if (isset($_POST['tag']) && $_POST['tag'] != '') {
             echo json_encode($response);
         }
      }
+    else if ($tag == 'upload') {
+        if($_FILES['image']['name']) {
+            $image_path =$_FILES['image']['name'];
+
+            list($file,$error) = upload('image','uploads/','jpeg,gif,png,jpg');
+            if($error) print $error;
+            $magicianObj = new imageLib("uploads/".$image_path);
+            //$magicianObj -> resizeImage(1280, 960, 'crop');
+            $magicianObj -> saveImage("uploads/".$image_path);
+
+
+            $aciklama = $_POST['aciklama'];
+            $lat = $_POST['latitude'];
+            $long=$_POST['longitude'];
+            $kategori_id = $_POST['kategori_id'];
+            $kullanici_id = $_POST['kullanici_id'];
+            $lokasyon_id = $_POST['lokasyon_id'];
+            $user = $db->saveComplaint($image_path,$aciklama,$lat,$long,$kategori_id,$kullanici_id,$lokasyon_id);
+
+            if ($user != false) {
+
+                $response["success"] = 1;
+                echo json_encode($response);
+            } else {
+                $response["error"] = 1;
+                $response["error_msg"] = "E-mail address already exist!";
+                echo json_encode($response);
+            }
+        }
+    }
 
 		
     //
@@ -68,5 +98,4 @@ else{
 
     echo "Access Denied";
 }
-
 ?>
