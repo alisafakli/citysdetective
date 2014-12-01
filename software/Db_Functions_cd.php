@@ -65,7 +65,7 @@ class Db_Functions_cd{
 
     function saveComplaint($image_path,$aciklama,$lat,$long,$kategori_id,$kullanici_id,$lokasyon_id){
 
-        $result = mysql_query("INSERT INTO sikayet (sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,kategori_id,kullanici_id,lokasyon_id) VALUES ('$image_path','$aciklama','$lat','$long','$kategori_id','$kullanici_id','$lokasyon_id')") or die(mysql_error());
+        $result = mysql_query("INSERT INTO sikayet (sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,kategori_id,kullanici_id,lokasyon_id,confirmed) VALUES ('$image_path','$aciklama','$lat','$long','$kategori_id','$kullanici_id','$lokasyon_id','0')") or die(mysql_error());
 
         if($result){
 
@@ -76,7 +76,18 @@ class Db_Functions_cd{
         }
     }
 
+    function getUsers(){
+        $result = mysql_query("SELECT * FROM kullanici_bilgileri WHERE 1") or die(mysql_error());
+
+        while($row = mysql_fetch_array($result))
+        {
+            echo "<tr><td>".$row['kullanici_id']."</td><td>".$row['kullanici_adi']."</td><td>".$row['kullanici_soyadi']."</td><td>".$row['kullanici_mail']."</td><td>".$row['kullanici_telefon']."</td>
+            <td><a  class=\"btn btn-danger\" href=\"users.php?id=".$row['kullanici_id']."\">Sil</a></td></tr>";
+        }
+    }
+
 
 	
 }
 ?>
+db
