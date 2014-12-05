@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="CDgreen" type="color">#06af5e</item>
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="green" type="color">#FF99CC00</item>
+    <item name="orange" type="color">#FFFFBB33</item>
+    <item name="red" type="color">#FFFF4444</item>
+    <item name="darkblue" type="color">#FF0099CC</item>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="darkorange" type="color">#FFFF8800</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+    <item name="CDColor" type="color">#ff8000</item>
+    <item name="blue2" type="color">#0048ff</item>
+        <color name="list_item_title">#fff</color>
+    <color name="list_background">#8c8b8b</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+    <color name="counter_text_bg">#626262</color>
+    <color name="counter_text_color">#c5c4c4</color>
+
+    <color name="kirmizi">#FF0000</color>
+    <color name="beyaz">#FFFFFF</color>
+    <color name="siyah">#000000</color>
+    <color name="CDppuan_ustbar_backcolor">#f9bd38</color>
+    <color name="CDppuan_ustbar_indicator">#606060</color>
+    <color name="CDppuan_ustbar_textcolor">#FFFFFF</color>
+    <color name="CDppuan_tab1_text_color">#909090</color>
+    <color name="tanitim_backcolor">#ededed</color>
+    <color name="tanitim_aciklama_forecolor">#818181</color>
+    <color name="tanitim_baslik_forecolor">#6b6b6b</color>
+    <color name="tanitim_label_forecolor">#333333</color>
+    <color name="tanitim_viewpager_indicator_background">#828282</color>
+    <color name="tanitim_viewpager_indicator_background_selected">#ffba00</color>
+    <color name="login_backcolor">#ededed</color>
+    <color name="login_label_forecolor">#343434</color>
+    <color name="login_button_backcolor">#ff8000</color>
+    <color name="login_button_forecolor">#FFFFFF</color>
+    <color name="register_backcolor">#ededed</color>
+    <color name="register_label_forecolor">#343434</color>
+    <color name="register_button_backcolor">#f7aa00</color>
+    <color name="register_button_forecolor">#FFFFFF</color>
+    <color name="kampanyalar_list_label_forecolor">#4f4f4f</color>
+    <color name="profilim_backcolor">#ededed</color>
+    <color name="profilim_label_baslik_forecolor">#f9bd38</color>
+    <color name="profilim_label_aciklama_forecolor">#898989</color>
+    <color name="isletmeler_tab_selected">#f39a09</color>
+    <color name="isletmeler_tab_notselected">#ffffff</color>
+    <color name="isletmeler_tab_text_selected">#ffffff</color>
+    <color name="isletmeler_tab_text_notselected">#f39a09</color>
+    <color name="isletmeler_info_indicator_color">#bebebe</color>
+    <color name="isletmeler_info_text_color">#555555</color>
+
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkred</item>
+    </integer-array>
+
+</resources>
