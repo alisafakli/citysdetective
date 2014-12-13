@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import com.example.citydetective.R;
+import com.example.citydetective.location.LocationActivity;
+import com.example.citydetective.location.MyComplaintLocation;
 import com.example.citydetective.webservice.MyComplaints;
 
 
@@ -30,14 +32,13 @@ import android.widget.Toast;
 public class CustomListAdapterMyComplaints extends BaseAdapter{
 	TextView kullanici_email,
 			sikayet_aciklama,
-			sikayet_latitude,
-			sikayet_longitude,
 			sikayet_kategori_id,
 			sikayet_onay,
 			sikayet_onay_aciklama;
 
 
-	ImageView image;
+	ImageView image,ivMap;
+	Context context;
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -47,18 +48,17 @@ public class CustomListAdapterMyComplaints extends BaseAdapter{
 			LayoutInflater vi = (LayoutInflater)_c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.mycomplaints_list, null );
 		}
-
+		context = v.getContext();
 		image = (ImageView) v.findViewById(R.id.imageView1);
+		ivMap = (ImageView) v.findViewById(R.id.ivMap);
 		TextView kullanici_email = (TextView)v.findViewById(R.id.kullanici_email);
 		TextView sikayet_aciklama = (TextView)v.findViewById(R.id.sikayet_aciklama);
-		TextView sikayet_latitude = (TextView)v.findViewById(R.id.sikayet_latitude);
-		TextView sikayet_longitude = (TextView)v.findViewById(R.id.sikayet_longitude);
 		TextView sikayet_kategori_id = (TextView)v.findViewById(R.id.sikayet_kategori_id);
 		TextView sikayet_onay = (TextView)v.findViewById(R.id.sikayet_onay);
 		TextView sikayet_onay_aciklama = (TextView)v.findViewById(R.id.sikayet_onay_aciklama);
 
 
-		MyComplaints msg = _data.get(position);
+		final MyComplaints msg = _data.get(position);
 		//          image.setImageResource(msg.hareket_image);
 		new DownloadImageTask(image,msg.getSikayet_fotograf()).execute();
 		kullanici_email.setText(msg.getKullanici_email());
@@ -66,8 +66,25 @@ public class CustomListAdapterMyComplaints extends BaseAdapter{
 			sikayet_aciklama.setText(msg.getSikayet_aciklama());
 		else
 			sikayet_aciklama.setText("");
-		sikayet_latitude.setText("Latitude: "+msg.getSikayet_latitude());   
-		sikayet_longitude.setText("Longitude: " + msg.getSikayet_longitude());
+		
+		if(!msg.getSikayet_latitude().equals("") && !msg.getSikayet_longitude().equals("")){
+			ivMap.setVisibility(View.VISIBLE);
+		}
+		else
+			ivMap.setVisibility(View.INVISIBLE);
+		
+		ivMap.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				Toast.makeText(this,"Latitude:" + msg.getSikayet_latitude().toString() + "\nLongitude:"+msg.getSikayet_longitude() , Toast.LENGTH_LONG).show();
+				 Intent intent=new Intent(context,MyComplaintLocation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				 intent.putExtra("latitude", msg.getSikayet_latitude());
+				 intent.putExtra("longitude", msg.getSikayet_longitude());
+				 context.startActivity(intent);
+			}
+		});
+//		sikayet_latitude.setText("Latitude: "+msg.getSikayet_latitude());   
+//		sikayet_longitude.setText("Longitude: " + msg.getSikayet_longitude());
 		
 		//
 		/*<item>Traffic</item>

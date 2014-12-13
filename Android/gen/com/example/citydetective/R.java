@@ -1262,26 +1262,30 @@ containing a value of this type.
         public static final int cdicon=0x7f02005a;
         public static final int complaints=0x7f02005b;
         public static final int counter_bg=0x7f02005c;
-        public static final int fail=0x7f02005d;
-        public static final int ic_communities=0x7f02005e;
-        public static final int ic_drawer=0x7f02005f;
-        public static final int ic_home=0x7f020060;
-        public static final int ic_launcher=0x7f020061;
-        public static final int ic_pages=0x7f020062;
-        public static final int ic_people=0x7f020063;
-        public static final int ic_photos=0x7f020064;
-        public static final int ic_whats_hot=0x7f020065;
-        public static final int layoutborder1=0x7f020066;
-        public static final int layoutborder2=0x7f020067;
-        public static final int layoutborder3=0x7f020068;
-        public static final int list_item_bg_normal=0x7f020069;
-        public static final int list_item_bg_pressed=0x7f02006a;
-        public static final int list_selector=0x7f02006b;
-        public static final int logout=0x7f02006c;
-        public static final int messageicon=0x7f02006d;
-        public static final int mycomplaints=0x7f02006e;
-        public static final int programlist_border=0x7f02006f;
-        public static final int success=0x7f020070;
+        public static final int dialog_design=0x7f02005d;
+        public static final int fail=0x7f02005e;
+        public static final int gmaps=0x7f02005f;
+        public static final int ic_communities=0x7f020060;
+        public static final int ic_drawer=0x7f020061;
+        public static final int ic_home=0x7f020062;
+        public static final int ic_launcher=0x7f020063;
+        public static final int ic_pages=0x7f020064;
+        public static final int ic_people=0x7f020065;
+        public static final int ic_photos=0x7f020066;
+        public static final int ic_whats_hot=0x7f020067;
+        public static final int ivloading=0x7f020068;
+        public static final int layoutborder1=0x7f020069;
+        public static final int layoutborder2=0x7f02006a;
+        public static final int layoutborder3=0x7f02006b;
+        public static final int layoutborder4=0x7f02006c;
+        public static final int list_item_bg_normal=0x7f02006d;
+        public static final int list_item_bg_pressed=0x7f02006e;
+        public static final int list_selector=0x7f02006f;
+        public static final int logout=0x7f020070;
+        public static final int messageicon=0x7f020071;
+        public static final int mycomplaints=0x7f020072;
+        public static final int programlist_border=0x7f020073;
+        public static final int success=0x7f020074;
     }
     public static final class id {
         public static final int action_bar=0x7f05001f;
@@ -1337,6 +1341,7 @@ containing a value of this type.
         public static final int ifRoom=0x7f05000e;
         public static final int image=0x7f05002a;
         public static final int imageView1=0x7f050042;
+        public static final int ivMap=0x7f05006b;
         public static final int kullanici_email=0x7f050068;
         public static final int listMode=0x7f050005;
         public static final int listView1=0x7f050065;
@@ -1369,9 +1374,8 @@ containing a value of this type.
         public static final int showCustom=0x7f05000b;
         public static final int showHome=0x7f050008;
         public static final int showTitle=0x7f05000a;
-        public static final int sikayet_aciklama=0x7f05006b;
+        public static final int sikayet_aciklama=0x7f05006c;
         public static final int sikayet_kategori_id=0x7f050069;
-        public static final int sikayet_latitude=0x7f05006c;
         public static final int sikayet_longitude=0x7f05005d;
         public static final int sikayet_onay=0x7f050059;
         public static final int sikayet_onay_aciklama=0x7f05006a;
@@ -1452,24 +1456,26 @@ containing a value of this type.
         public static final int activity_location=0x7f030019;
         public static final int activity_main=0x7f03001a;
         public static final int activity_mainlogon=0x7f03001b;
-        public static final int activity_sign_up=0x7f03001c;
-        public static final int drawer_list_item=0x7f03001d;
-        public static final int fragment_community=0x7f03001e;
-        public static final int fragment_find_people=0x7f03001f;
-        public static final int fragment_home=0x7f030020;
-        public static final int fragment_mycomplaints=0x7f030021;
-        public static final int fragment_pages=0x7f030022;
-        public static final int fragment_servermessages=0x7f030023;
-        public static final int list_row=0x7f030024;
-        public static final int mycomplaints_list=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
-        public static final int tab_fragment_a=0x7f030027;
-        public static final int tab_fragment_b=0x7f030028;
-        public static final int tab_fragment_c=0x7f030029;
+        public static final int activity_my_complaint_location=0x7f03001c;
+        public static final int activity_sign_up=0x7f03001d;
+        public static final int drawer_list_item=0x7f03001e;
+        public static final int fragment_community=0x7f03001f;
+        public static final int fragment_find_people=0x7f030020;
+        public static final int fragment_home=0x7f030021;
+        public static final int fragment_mycomplaints=0x7f030022;
+        public static final int fragment_pages=0x7f030023;
+        public static final int fragment_servermessages=0x7f030024;
+        public static final int list_row=0x7f030025;
+        public static final int mycomplaints_list=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
+        public static final int tab_fragment_a=0x7f030028;
+        public static final int tab_fragment_b=0x7f030029;
+        public static final int tab_fragment_c=0x7f03002a;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
-        public static final int sign_up=0x7f0d0001;
+        public static final int my_complaint_location=0x7f0d0001;
+        public static final int sign_up=0x7f0d0002;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1602,6 +1608,7 @@ containing a value of this type.
         public static final int title_activity_complaint=0x7f060037;
         public static final int title_activity_location=0x7f060036;
         public static final int title_activity_main=0x7f060024;
+        public static final int title_activity_my_complaint_location=0x7f060039;
         public static final int title_activity_sign_up=0x7f060021;
     }
     public static final class style {
@@ -1626,11 +1633,11 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b0091;
+        public static final int AppBaseTheme=0x7f0b0092;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0b0092;
+        public static final int AppTheme=0x7f0b0093;
         public static final int CDActionBarTheme=0x7f0b008c;
         public static final int CDTheme=0x7f0b008b;
         public static final int CDTheme_ActionBar_TitleTextStyle=0x7f0b0090;
@@ -1839,6 +1846,7 @@ containing a value of this type.
         public static final int Widget_AppCompat_ProgressBar_Horizontal=0x7f0b0009;
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0b0022;
         public static final int Widget_test_ActionBar_TabBar=0x7f0b008e;
+        public static final int myCoolDialog=0x7f0b0091;
     }
     public static final class styleable {
         /**  ============================================ 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="myCoolDialog" parent="android:Theme.Dialog" >
+        <item name="android:windowBackground">@drawable/dialog_design</item>
+        <item name="android:colorForeground">#452632</item> 
+        
+     </style> 
+</resources>
