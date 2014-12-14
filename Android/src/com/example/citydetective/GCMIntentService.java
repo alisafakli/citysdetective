@@ -1,7 +1,7 @@
 package com.example.citydetective;
 
-import static com.example.citydetective.CommonUtilities.SENDER_ID;
-import static com.example.citydetective.CommonUtilities.displayMessage;
+import static com.example.citydetective.utils.CommonUtilities.SENDER_ID;
+import static com.example.citydetective.utils.CommonUtilities.displayMessage;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.citydetective.R;
+import com.example.citydetective.R.drawable;
+import com.example.citydetective.R.string;
+import com.example.citydetective.utils.ServerUtilities;
 import com.google.android.gcm.GCMBaseIntentService;
  
 public class GCMIntentService extends GCMBaseIntentService {
@@ -38,7 +41,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onUnregistered(Context context, String registrationId) {
         Log.i(TAG, "Device unregistered");
         displayMessage(context, getString(R.string.gcm_unregistered));
-        ServerUtilities.unregister(context, registrationId);
+        ServerUtilities.unregister(context);
     }
  
     /**

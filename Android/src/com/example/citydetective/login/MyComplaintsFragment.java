@@ -3,15 +3,8 @@ package com.example.citydetective.login;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.citydetective.R;
-import com.example.citydetective.webservice.DatabaseHandler;
-import com.example.citydetective.webservice.MyComplaints;
-import com.example.citydetective.webservice.UserFunctions;
-
-import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,13 +13,18 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.citydetective.R;
+import com.example.citydetective.webservice.DatabaseHandler;
+import com.example.citydetective.webservice.MyComplaints;
+import com.example.citydetective.webservice.UserFunctions;
 
 public class MyComplaintsFragment extends Fragment {
 	String email="";
@@ -95,6 +93,7 @@ public class MyComplaintsFragment extends Fragment {
 						    String sikayet_kategori_id = actor.getString("sikayet_kategori_id");
 						    String sikayet_onay = actor.getString("sikayet_onay");
 						    String sikayet_onay_aciklama = actor.getString("sikayet_onay_aciklama");
+						    String sikayet_tarih = actor.getString("sikayet_tarih");
 						    
 						    sikayetler.setKullanici_email(kullanici_email);
 						    sikayetler.setKullanici_id(kullanici_id);
@@ -105,6 +104,7 @@ public class MyComplaintsFragment extends Fragment {
 						    sikayetler.setSikayet_longitude(sikayet_longitude);
 						    sikayetler.setSikayet_onay(sikayet_onay);
 						    sikayetler.setSikayet_onay_aciklama(sikayet_onay_aciklama);
+						    sikayetler.setSikayet_tarih(sikayet_tarih);
 						    arrList.add(sikayetler);
 					    
 						}

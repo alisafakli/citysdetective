@@ -9,7 +9,18 @@ public class MyComplaints {
 			sikayet_longitude,
 			sikayet_kategori_id,
 			sikayet_onay,
-			sikayet_onay_aciklama;
+			sikayet_onay_aciklama,
+			sikayet_tarih;
+
+
+
+	public String getSikayet_tarih() {
+		return sikayet_tarih;
+	}
+
+	public void setSikayet_tarih(String sikayet_tarih) {
+		this.sikayet_tarih = sikayet_tarih;
+	}
 
 	public String getKullanici_email() {
 		return kullanici_email;

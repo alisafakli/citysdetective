@@ -32,12 +32,6 @@
                 android:textColor="@color/blue" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Path:" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +43,14 @@
                 android:id="@+id/imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="276dp"
+                android:background="@drawable/layoutborder1"
                 android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Path:" />
 
             <EditText
                 android:id="@+id/etComplaint"

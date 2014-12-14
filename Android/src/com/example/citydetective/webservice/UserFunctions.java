@@ -1,12 +1,12 @@
 package com.example.citydetective.webservice;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -23,12 +23,14 @@ public class UserFunctions {
 	private static String signupURL ="http://citydetective.safakli.com/";
 	private static String add_complaintURL ="http://citydetective.safakli.com/";
 	private static String getMyComplaintsURL ="http://citydetective.safakli.com/";
+	private static String getApprovedComplaintsURL ="http://citydetective.safakli.com/";
 
 	// User Info Update Tag
 	private static String login_tag = "login";
 	private static String signup_tag = "signup";
 	private static String add_complaint_tag = "add_complaint";
 	private static String getMyComplaints_tag = "getMyComplaints";
+	private static String getApprovedCompaints_tag = "getApprovedComplaints";
 
 	// constructor
 	public UserFunctions() {
@@ -81,6 +83,11 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("sikayet_kategori_id", sikayet_kategori_id));
 		params.add(new BasicNameValuePair("sikayet_onay", sikayet_onay));
 		params.add(new BasicNameValuePair("sikayet_onay_aciklama", sikayet_onay_aciklama));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		String currentDateandTime = sdf.format(new Date());
+		
+		params.add(new BasicNameValuePair("sikayet_tarih", currentDateandTime));
 		JSONObject json = jsonParser.getJSONFromUrl(add_complaintURL, params);
 		// return json
 		// Log.e("JSON", json.toString());
@@ -92,6 +99,16 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("tag", getMyComplaints_tag));
 		params.add(new BasicNameValuePair("mail", mail));
 		JSONObject json = jsonParser.getJSONFromUrl(getMyComplaintsURL, params);
+		// return json
+		// Log.e("JSON", json.toString());
+		return json;
+	}
+	public JSONObject getApprovedCompaints() {
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", getApprovedCompaints_tag));
+		params.add(new BasicNameValuePair("onay", "onaylandi"));
+		JSONObject json = jsonParser.getJSONFromUrl(getApprovedComplaintsURL, params);
 		// return json
 		// Log.e("JSON", json.toString());
 		return json;

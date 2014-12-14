@@ -35,21 +35,6 @@ public class ComplaintFragment extends Fragment {
 
 		int n = rand.nextInt(3) + 1;
 
-		if (n>=1) {
-			mTabHost.addTab(
-					mTabHost.newTabSpec("fragmentb").setIndicator("Fragment A"),
-					FragmentA.class, null);
-		} 
-		if (n>=2){
-			mTabHost.addTab(
-					mTabHost.newTabSpec("fragmentc").setIndicator("Fragment B"),
-					FragmentB.class, null);
-		}
-		if (n>=3) {
-			mTabHost.addTab(
-					mTabHost.newTabSpec("fragmentd").setIndicator("Fragment C"),
-					FragmentC.class, null);
-		}
 
 		return rootView;
 

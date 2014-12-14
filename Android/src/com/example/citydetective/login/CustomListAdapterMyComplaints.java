@@ -3,16 +3,6 @@ package com.example.citydetective.login;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
-import com.example.citydetective.R;
-import com.example.citydetective.location.LocationActivity;
-import com.example.citydetective.location.MyComplaintLocation;
-import com.example.citydetective.webservice.MyComplaints;
-
-
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,12 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.citydetective.R;
+import com.example.citydetective.location.MyComplaintLocation;
+import com.example.citydetective.webservice.MyComplaints;
 
 public class CustomListAdapterMyComplaints extends BaseAdapter{
 	TextView kullanici_email,
@@ -56,6 +47,7 @@ public class CustomListAdapterMyComplaints extends BaseAdapter{
 		TextView sikayet_kategori_id = (TextView)v.findViewById(R.id.sikayet_kategori_id);
 		TextView sikayet_onay = (TextView)v.findViewById(R.id.sikayet_onay);
 		TextView sikayet_onay_aciklama = (TextView)v.findViewById(R.id.sikayet_onay_aciklama);
+		TextView sikayet_tarih = (TextView)v.findViewById(R.id.sikayet_tarih);
 
 
 		final MyComplaints msg = _data.get(position);
@@ -83,6 +75,11 @@ public class CustomListAdapterMyComplaints extends BaseAdapter{
 				 context.startActivity(intent);
 			}
 		});
+		if(!msg.getSikayet_tarih().equals("")){
+			sikayet_tarih.setVisibility(View.VISIBLE);
+			sikayet_tarih.setText(msg.getSikayet_tarih());
+		}else
+			sikayet_tarih.setVisibility(View.INVISIBLE);
 //		sikayet_latitude.setText("Latitude: "+msg.getSikayet_latitude());   
 //		sikayet_longitude.setText("Longitude: " + msg.getSikayet_longitude());
 		

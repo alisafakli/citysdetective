@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity  {
 		etEmail = (EditText)findViewById(R.id.etE_mail);
 		etEmail.setText("ali@safakli.com");
 		etPassword = (EditText)findViewById(R.id.etPassword);
-		etPassword.setText("12345678");
+		etPassword.setText("123123123");
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new OnClickListener() {	
 			@Override

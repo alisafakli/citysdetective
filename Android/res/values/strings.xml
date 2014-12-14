@@ -43,7 +43,7 @@
         <item>Home</item>
         <item>Complaints</item>
         <item>My Complaints</item>
-        <item>Suggestion</item>
+        <item>Categories</item>
         <item>Account</item>
         <item>Server Messages</item>
         <item>Log Out</item>
@@ -55,8 +55,8 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/complaints</item>
         <item>@drawable/mycomplaints</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_categories</item>
+        <item>@drawable/ic_account</item>
         <item>@drawable/messageicon</item>
         <item>@drawable/logout</item>
     </array>

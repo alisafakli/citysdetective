@@ -2,10 +2,10 @@ package com.example.citydetective;
 
 
 
-import static com.example.citydetective.CommonUtilities.DISPLAY_MESSAGE_ACTION;
-import static com.example.citydetective.CommonUtilities.EXTRA_MESSAGE;
-import static com.example.citydetective.CommonUtilities.SENDER_ID;
-import static com.example.citydetective.CommonUtilities.SERVER_URL;
+import static com.example.citydetective.utils.CommonUtilities.DISPLAY_MESSAGE_ACTION;
+import static com.example.citydetective.utils.CommonUtilities.EXTRA_MESSAGE;
+import static com.example.citydetective.utils.CommonUtilities.SENDER_ID;
+import static com.example.citydetective.utils.CommonUtilities.SERVER_URL;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,11 +17,12 @@ import com.example.citydetective.login.CommunityFragment;
 import com.example.citydetective.login.ComplaintActivity;
 import com.example.citydetective.login.ComplaintFragment;
 import com.example.citydetective.login.HomeFragment;
-import com.example.citydetective.login.NavDrawerItem;
-import com.example.citydetective.login.NavDrawerListAdapter;
 import com.example.citydetective.login.PagesFragment;
 import com.example.citydetective.login.MyComplaintsFragment;
 import com.example.citydetective.login.ServerMessages;
+import com.example.citydetective.login.slidingmenu.NavDrawerItem;
+import com.example.citydetective.login.slidingmenu.NavDrawerListAdapter;
+import com.example.citydetective.utils.ServerUtilities;
 import com.example.citydetective.webservice.DatabaseHandler;
 import com.example.citydetective.webservice.UserFunctions;
 import com.google.android.gcm.GCMRegistrar;
@@ -405,6 +406,7 @@ public class LoginActivity extends ActionBarActivity {
 					com.example.citydetective.MainActivity.class);
 			login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(login);
+			ServerUtilities.unregister(getApplicationContext());
 			this.finish();
 			
 			break;

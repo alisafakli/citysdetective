@@ -115,7 +115,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".GCMIntentService" />
+        <service android:name="com.example.citydetective.GCMIntentService" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

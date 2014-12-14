@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.citydetective.R;
 import com.example.citydetective.webservice.DatabaseHandler;
@@ -32,14 +33,17 @@ public class ServerMessages extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_servermessages, container, false);
 		db = new DatabaseHandler(getActivity());
 //		db.resetTablesPN();
-		lst = db.getMessageDetails();
-		tv = (TextView)rootView.findViewById(R.id.textView1);  
-		
-        lv = (ListView)rootView.findViewById(R.id.listView1);
-        lv.setAdapter(new CustomListAdapter(lst,
-				getActivity()));
+		try{
+			lst = db.getMessageDetails();
+			tv = (TextView)rootView.findViewById(R.id.textView1);  
+			
+	        lv = (ListView)rootView.findViewById(R.id.listView1);
+	        lv.setAdapter(new CustomListAdapter(lst,
+					getActivity()));
 
-         
+		}catch(Exception x){
+			Toast.makeText(getActivity(), "Error!: "+ x.getMessage(), Toast.LENGTH_LONG).show();
+		}
         return rootView;
     }
 }
