@@ -12,23 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.example.citydetective.R;
-import com.example.citydetective.login.CommunityFragment;
-import com.example.citydetective.login.ComplaintActivity;
-import com.example.citydetective.login.ComplaintFragment;
-import com.example.citydetective.login.HomeFragment;
-import com.example.citydetective.login.PagesFragment;
-import com.example.citydetective.login.MyComplaintsFragment;
-import com.example.citydetective.login.ServerMessages;
-import com.example.citydetective.login.slidingmenu.NavDrawerItem;
-import com.example.citydetective.login.slidingmenu.NavDrawerListAdapter;
-import com.example.citydetective.utils.ServerUtilities;
-import com.example.citydetective.webservice.DatabaseHandler;
-import com.example.citydetective.webservice.UserFunctions;
-import com.google.android.gcm.GCMRegistrar;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,13 +21,11 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings.System;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +33,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.citydetective.login.AccountFragment;
+import com.example.citydetective.login.CategoriesFragment;
+import com.example.citydetective.login.ComplaintActivity;
+import com.example.citydetective.login.HomeFragment;
+import com.example.citydetective.login.MyComplaintsFragment;
+import com.example.citydetective.login.ServerMessages;
+import com.example.citydetective.login.slidingmenu.NavDrawerItem;
+import com.example.citydetective.login.slidingmenu.NavDrawerListAdapter;
+import com.example.citydetective.utils.ServerUtilities;
+import com.example.citydetective.webservice.DatabaseHandler;
+import com.example.citydetective.webservice.UserFunctions;
+import com.google.android.gcm.GCMRegistrar;
 
 public class LoginActivity extends ActionBarActivity {
 	private DrawerLayout mDrawerLayout;
@@ -77,7 +72,7 @@ public class LoginActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mainlogon);
-		
+		//db.resetTables();
 		userFunctions = new UserFunctions();
 		if (userFunctions.isUserLoggedIn(getApplicationContext())) {
 			mTitle = mDrawerTitle = getTitle();
@@ -249,7 +244,7 @@ public class LoginActivity extends ActionBarActivity {
             // Device is already registered on GCM
             if (GCMRegistrar.isRegisteredOnServer(this)) {
                 // Skips registration.              
-                Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
             } else {
                 // Try to register again, but not in the UI thread.
                 // It's also necessary to cancel the thread onDestroy(),
@@ -291,19 +286,18 @@ public class LoginActivity extends ActionBarActivity {
 	             * depending upon your app requirement
 	             * For now i am just displaying it on the screen
 	             * */
-	             
 	            // Showing received message
 	            lblMessage += newMessage + "\n";      
 	            db = new DatabaseHandler(getApplicationContext());
 	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	            SimpleDateFormat dateFormatID = new SimpleDateFormat("yyyyMMddHHmmss");
 	            Date date = new Date();
-	            
-	            db.addMessage(dateFormatID.format(date),newMessage, dateFormat.format(date));
+	            String did = dateFormatID.format(date);
+	            String datef = dateFormat.format(date);
+	            db.addMessage(did,newMessage,datef );
 	            
 	            
 	            Toast.makeText(getApplicationContext(), "New Message: " + newMessage, Toast.LENGTH_LONG).show();
-	             
 	            // Releasing wake lock
 	            WakeLocker.release();
 	        }
@@ -379,7 +373,7 @@ public class LoginActivity extends ActionBarActivity {
 			fragment = new HomeFragment();
 			break;
 		case 1:
-			//fragment = new ComplaintFragment();
+			//fragment = new CategoriesFragment();
 			Intent i = new Intent(LoginActivity.this,ComplaintActivity.class);
 			startActivity(i);
 			break;
@@ -388,10 +382,10 @@ public class LoginActivity extends ActionBarActivity {
 
 			break;
 		case 3:
-			fragment = new CommunityFragment();
+			fragment = new CategoriesFragment();
 			break;
 		case 4:
-			fragment = new PagesFragment();
+			fragment = new AccountFragment();
 			break;
 		case 5:
 			fragment = new ServerMessages();
@@ -400,12 +394,13 @@ public class LoginActivity extends ActionBarActivity {
 		case 6:
 			com.example.citydetective.webservice.UserFunctions userFunctions = 
 			new com.example.citydetective.webservice.UserFunctions();
-			
+			//db.resetTablesPN();
 			userFunctions.logoutUser(getApplicationContext());
 			Intent login = new Intent(getApplicationContext(),
 					com.example.citydetective.MainActivity.class);
 			login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(login);
+			
 			ServerUtilities.unregister(getApplicationContext());
 			this.finish();
 			

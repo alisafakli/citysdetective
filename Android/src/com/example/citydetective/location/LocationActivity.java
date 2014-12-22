@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -28,7 +30,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.citydetective.R;
-import com.example.citydetective.login.ComplaintActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -46,10 +47,20 @@ public class LocationActivity extends FragmentActivity {
 	ArrayList<LatLng> markerPoints;
 	Button btnCurrentLoc,btnSelectedLoc;
 	String s_lat="",s_lng="";
+	Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
+		context=this;
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+        }else{
+            showGPSDisabledAlertToUser();
+        }
+		
 		
 		btnCurrentLoc = (Button)findViewById(R.id.btnCurrentLoc);
 		btnCurrentLoc.setOnClickListener(new View.OnClickListener() {
@@ -155,27 +166,48 @@ public class LocationActivity extends FragmentActivity {
 			});
 		}		
 	}
+	private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+        .setCancelable(false)
+        .setPositiveButton("Goto Settings Page To Enable GPS",
+                new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Intent callGPSSettingIntent = new Intent(
+                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(callGPSSettingIntent);
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }	
 	Location location;
 	private void zoomCurrentLocation() {
 		// TODO Auto-generated method stub
 		 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
          Criteria criteria = new Criteria();
-
+//Eskiþehir: 39.777152, 30.516490
          Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-         if (location != null)
-         {
+//         if (location != null)
+//         {
              map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                     new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                     new LatLng(39.777152, 30.516490), 8));
 
              CameraPosition cameraPosition = new CameraPosition.Builder()
-             .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
-             .zoom(17)                   // Sets the zoom
+             .target(new LatLng(39.777152, 30.516490))      // Sets the center of the map to location user
+             .zoom(15)                   // Sets the zoom
              .bearing(90)                // Sets the orientation of the camera to east
              .tilt(40)                   // Sets the tilt of the camera to 30 degrees
              .build();                   // Creates a CameraPosition from the builder
          map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-         }
+//         }
 
 	}
 

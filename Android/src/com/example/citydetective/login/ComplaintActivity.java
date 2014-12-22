@@ -69,7 +69,7 @@ public class ComplaintActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_complaint);
 		context = this;
 		tvLocation = (TextView)findViewById(R.id.tvLocation);
-		tv = (TextView)findViewById(R.id.textView1);
+		tv = (TextView)findViewById(R.id.tvUName);
 		iv = (ImageView)findViewById(R.id.imageView1);
 		et = (EditText)findViewById(R.id.etComplaint);
 		btnLocation = (Button)findViewById(R.id.btnLocation);
@@ -344,11 +344,20 @@ public class ComplaintActivity extends ActionBarActivity {
 					bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
 
 					while (bytesRead > 0) {
-
+						int bytesread2 = bytesRead;
 						dos.write(buffer, 0, bufferSize);
 						bytesAvailable = fileInputStream.available();
 						bufferSize = Math.min(bytesAvailable, maxBufferSize);
-						bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
+						bytesRead = fileInputStream.read(buffer, 0, bufferSize); 
+						int bytesavail = bytesAvailable;
+						
+						//int process = (bytesread2 * 100)/bytesavail;
+						//publishProgress(process);
+						Log.e("bytesRead:" ,Integer.toString(bytesRead));
+	
+						Log.e("bytesAvailable:" ,Integer.toString(bytesAvailable));
+						
+						//Log.e("process:" ,Integer.toString(process));
 //						int process = bytesRead/bufferSize * 100;
 //						publishProgress(process);
 
@@ -440,13 +449,13 @@ public class ComplaintActivity extends ActionBarActivity {
 			String email = db.getUserDetails().get(KEY_EMAIL).toString();
 			String category_id = Integer.toString(spinner.getSelectedItemPosition());
 			UserFunctions userFunctions = new UserFunctions();
-			JSONObject json = userFunctions.addComplaint(email, id, uploadFileName, et.getText().toString(), comp_Lat, comp_Lng, category_id, "waiting", "");
+			JSONObject json2 = userFunctions.addComplaint(email, id, uploadFileName, et.getText().toString(), comp_Lat, comp_Lng, category_id, "waiting", "");
 					
-			Log.e("JSON Parser", json.toString());
+			Log.e("JSON Parser", json2.toString());
 			try {
-				if (json.getString("success") != null) {
-					String res = json.getString("success");
-					String errormsg = json.getString("error");
+				if (json2.getString("success") != null) {
+					String res = json2.getString("success");
+					String errormsg = json2.getString("error");
 					if (Integer.parseInt(res) == 1 && Integer.parseInt(errormsg) != 1 ) {
 						
 						runOnUiThread(new Runnable(){
@@ -462,7 +471,7 @@ public class ComplaintActivity extends ActionBarActivity {
 
 						finish();
 					}else{
-						error_msg = json.getString("error_msg");
+						error_msg = json2.getString("error_msg");
 						dialog.dismiss();
 						runOnUiThread(new Runnable(){
 						    public void run() {

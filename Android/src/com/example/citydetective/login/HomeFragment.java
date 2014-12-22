@@ -1,6 +1,7 @@
 package com.example.citydetective.login;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -136,6 +137,7 @@ public class HomeFragment extends Fragment {
 		protected void onPostExecute(String result) {
 			try {
 				if(check){
+					arrList = reverse(arrList);
 				 list.setAdapter(new CustomListAdapterApprovedComplaints(arrList,
 							getActivity()));
 				}
@@ -155,5 +157,13 @@ public class HomeFragment extends Fragment {
 				dialog.dismiss();
 			}
 		}
+	}
+	public ArrayList<MyComplaints> reverse(ArrayList<MyComplaints> list) {
+	    if(list.size() > 1) {                   
+	        MyComplaints value = list.remove(0);
+	        reverse(list);
+	        list.add(value);
+	    }
+	    return list;
 	}
 }

@@ -119,6 +119,7 @@ public class MyComplaintsFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			try {
+				arrList = reverse(arrList);
 				list.setAdapter(new CustomListAdapterMyComplaints(arrList,
 						getActivity()));
 				dialog.dismiss();
@@ -127,5 +128,13 @@ public class MyComplaintsFragment extends Fragment {
 				// TODO: handle exception
 			}
 		}
+	}
+	public ArrayList<MyComplaints> reverse(ArrayList<MyComplaints> list) {
+	    if(list.size() > 1) {                   
+	        MyComplaints value = list.remove(0);
+	        reverse(list);
+	        list.add(value);
+	    }
+	    return list;
 	}
 }
