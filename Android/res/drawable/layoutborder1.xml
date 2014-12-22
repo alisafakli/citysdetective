@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-   	<item android:state_pressed="true">
-   	       	    
-   	    <shape>
-            <!-- <solid android:color="@android:color/transparent" /> -->
-            <solid android:color="@color/CDgreen" />
-
-            <stroke android:width="3dp" android:color="#dddddd" />
-
-            <corners android:radius="15dp" />
-
-            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
-            
-
-
-        </shape>
-   	  
-   	</item>
-    
-    
     <item><shape>
             <!-- <solid android:color="@android:color/transparent" /> -->
-            <solid android:color="@color/CDgreen" />
+            <solid android:color="#e2e2e2" />
 
-            <stroke android:width="3dp" android:color="#dddddd" />
+            <stroke android:width="3dp" android:color="#ffffff" />
 
-            <corners android:radius="20dp" />
+            <corners android:radius="2dp" />
 
             <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
 
-
+            <gradient
+                android:startColor="#d0e0f5"
+                android:centerColor="#8cbaf2"
+                android:endColor="#4792ef"
+                android:angle="270" />
         </shape></item>     
 
 

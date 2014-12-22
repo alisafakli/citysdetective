@@ -126,7 +126,7 @@
 
         <activity
             android:name="com.example.citydetective.location.MyComplaintLocation"
-            android:label="@string/title_activity_my_complaint_location" 
+            android:label="@string/title_activity_my_complaint_location"
             android:theme="@style/myCoolDialog" >
         </activity>
     </application>

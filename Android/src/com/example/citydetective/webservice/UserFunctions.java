@@ -10,6 +10,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.content.Context;
+/**
+ * @author ${Ali Safakli}
+ */
 
 public class UserFunctions {
 
@@ -24,6 +27,9 @@ public class UserFunctions {
 	private static String add_complaintURL ="http://citydetective.safakli.com/";
 	private static String getMyComplaintsURL ="http://citydetective.safakli.com/";
 	private static String getApprovedComplaintsURL ="http://citydetective.safakli.com/";
+	private static String getComplaintsViaCategory_URL ="http://citydetective.safakli.com/";
+	private static String update_user_info_URL ="http://citydetective.safakli.com/";
+	private static String update_password_URL ="http://citydetective.safakli.com/";
 
 	// User Info Update Tag
 	private static String login_tag = "login";
@@ -31,6 +37,10 @@ public class UserFunctions {
 	private static String add_complaint_tag = "add_complaint";
 	private static String getMyComplaints_tag = "getMyComplaints";
 	private static String getApprovedCompaints_tag = "getApprovedComplaints";
+	
+	private static String getComplaintsViaCategory_tag = "getComplaintsViaCategory";
+	private static String update_user_info_tag = "update_user_info";
+	private static String update_password_tag = "update_password";
 
 	// constructor
 	public UserFunctions() {
@@ -109,6 +119,42 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("tag", getApprovedCompaints_tag));
 		params.add(new BasicNameValuePair("onay", "onaylandi"));
 		JSONObject json = jsonParser.getJSONFromUrl(getApprovedComplaintsURL, params);
+		// return json
+		// Log.e("JSON", json.toString());
+		return json;
+	}
+	public JSONObject getComplaintsViaCategory(String sikayet_kategori_id) {
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", getComplaintsViaCategory_tag));
+		params.add(new BasicNameValuePair("sikayet_kategori_id", sikayet_kategori_id));
+		JSONObject json = jsonParser.getJSONFromUrl(getComplaintsViaCategory_URL, params);
+		// return json
+		// Log.e("JSON", json.toString());
+		return json;
+	}//updateUserInfo($kullanici_id, $kullanici_mail, $kullanici_telefon)
+	public JSONObject updateUserInfo(String kullanici_id,String kullanici_mail,String kullanici_telefon) {
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", update_user_info_tag));
+		params.add(new BasicNameValuePair("kullanici_id", kullanici_id));
+		params.add(new BasicNameValuePair("kullanici_mail", kullanici_mail));
+		params.add(new BasicNameValuePair("kullanici_telefon", kullanici_telefon));
+		
+		JSONObject json = jsonParser.getJSONFromUrl(update_user_info_URL, params);
+		// return json
+		// Log.e("JSON", json.toString());
+		return json;
+	}
+	//updateUserPassword($kullanici_id, $kullanici_mail, $kullanici_yeni_sifre){
+	public JSONObject updateUserPassword(String kullanici_id,String kullanici_mail,String kullanici_yeni_sifre) {
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", update_password_tag));
+		params.add(new BasicNameValuePair("kullanici_id", kullanici_id));
+		params.add(new BasicNameValuePair("kullanici_mail", kullanici_mail));
+		params.add(new BasicNameValuePair("kullanici_yeni_sifre", kullanici_yeni_sifre));
+		JSONObject json = jsonParser.getJSONFromUrl(update_password_URL, params);
 		// return json
 		// Log.e("JSON", json.toString());
 		return json;

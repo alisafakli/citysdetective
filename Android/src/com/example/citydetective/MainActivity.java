@@ -92,6 +92,7 @@ public class MainActivity extends ActionBarActivity  {
 								json_user.getString("ad"),
 								json_user.getString("soyad"),
 								json_user.getString("mail"),
+								json_user.getString("sifre"),
 								json_user.getString("telefon"));
 						runOnUiThread(new Runnable(){
 						    public void run() {

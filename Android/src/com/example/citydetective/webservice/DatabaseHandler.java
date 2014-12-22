@@ -37,6 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_NAME = "name";
     private static final String KEY_SURNAME = "surname";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
     private static final String KEY_TELEPHONE = "telephone";
 
 	private static final String KEY_MESSAGE = "message";
@@ -57,6 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 + KEY_NAME + " TEXT,"
                 + KEY_SURNAME + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE,"
+                + KEY_PASSWORD + " TEXT,"
                 + KEY_TELEPHONE + " TEXT"
                 + " )";
         db.execSQL(CREATE_LOGIN_TABLE);
@@ -81,7 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     /**
      * Storing user details in database
      * */
-    public void addUser(String id, String name, String surname, String email ,String telephone) {
+    public void addUser(String id, String name, String surname, String email,String password,String telephone) {
         SQLiteDatabase db = this.getWritableDatabase();
  
         ContentValues values = new ContentValues();
@@ -89,6 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, name); // Surname
         values.put(KEY_SURNAME, surname); // Email
         values.put(KEY_EMAIL, email); // BirthDate
+        values.put(KEY_PASSWORD, password); // BirthDate
         values.put(KEY_TELEPHONE, telephone); // Surname
  
         // Inserting Row
@@ -121,14 +124,21 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
         	while (cursor.moveToNext()) {
+        		try{
         		ServerMessage sm = new ServerMessage();
         		sm.setId(cursor.getString(cursor.getColumnIndex("ids")));
-        		Log.e("KEY_ID", cursor.getString(cursor.getColumnIndex("ids")));
+        		//Log.e("KEY_ID", cursor.getString(cursor.getColumnIndex("ids")));
         		sm.setName(cursor.getString(cursor.getColumnIndex("message")));
-        		Log.e("KEY_msg", cursor.getString(cursor.getColumnIndex("message")));
+        		//Log.e("KEY_msg", cursor.getString(cursor.getColumnIndex("message")));
         		sm.setTime(cursor.getString(cursor.getColumnIndex("message_time")));
-        		Log.e("KEY_time", cursor.getString(cursor.getColumnIndex("message_time")));
+        		//Log.e("KEY_time", cursor.getString(cursor.getColumnIndex("message_time")));
         		arr.add(sm);
+        		}catch(Exception ex){
+//        			 cursor.close();
+//        		        db.close();
+//        		        // return user
+//        		        return arr;
+        		}
         	}
         }
         cursor.close();
@@ -159,7 +169,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             user.put(KEY_NAME, cursor.getString(1));
             user.put(KEY_SURNAME, cursor.getString(2));
             user.put(KEY_EMAIL, cursor.getString(3));
-            user.put(KEY_TELEPHONE, cursor.getString(4));
+            user.put(KEY_PASSWORD, cursor.getString(4));
+            user.put(KEY_TELEPHONE, cursor.getString(5));
         }
         cursor.close();
         db.close();
@@ -176,8 +187,35 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         
         return id;
     }
-    
-    /**
+    public void updatePhone(String userid , String newphone){
+    	String selectQuery = "UPDATE login SET telephone = "+newphone;
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	db.execSQL(selectQuery);
+    	//Cursor cursor = db.rawQuery(countQuery, null);
+        db.close();
+        // cursor.close();
+    	
+//    	String countQuery = "Update "+TABLE_LOGIN +" SET "+KEY_TELEPHONE +" = "+ newphone + " Where id = "+userid ;
+//    	SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(countQuery, null);
+//        db.close();
+//        cursor.close();
+    }
+    public void updatePassword(String userid , String password){
+    	String selectQuery = "UPDATE login SET password = "+password;
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	db.execSQL(selectQuery);
+    	//Cursor cursor = db.rawQuery(countQuery, null);
+        db.close();
+        // cursor.close();
+    	
+//    	String countQuery = "Update "+TABLE_LOGIN +" SET "+KEY_TELEPHONE +" = "+ newphone + " Where id = "+userid ;
+//    	SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(countQuery, null);
+//        db.close();
+//        cursor.close();
+    }
+    /**UPDATE t SET id = id + 1;
      * Getting user login status
      * return true if rows are there in table
      * */

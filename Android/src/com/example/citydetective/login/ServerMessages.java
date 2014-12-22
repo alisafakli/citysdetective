@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.citydetective.R;
 import com.example.citydetective.webservice.DatabaseHandler;
+import com.example.citydetective.webservice.MyComplaints;
 import com.example.citydetective.webservice.ServerMessage;
 
 public class ServerMessages extends Fragment {
@@ -35,9 +36,10 @@ public class ServerMessages extends Fragment {
 //		db.resetTablesPN();
 		try{
 			lst = db.getMessageDetails();
-			tv = (TextView)rootView.findViewById(R.id.textView1);  
+			tv = (TextView)rootView.findViewById(R.id.tvUName);  
 			
 	        lv = (ListView)rootView.findViewById(R.id.listView1);
+	        lst = reverse(lst);
 	        lv.setAdapter(new CustomListAdapter(lst,
 					getActivity()));
 
@@ -46,4 +48,12 @@ public class ServerMessages extends Fragment {
 		}
         return rootView;
     }
+	public ArrayList<ServerMessage> reverse(ArrayList<ServerMessage> list) {
+	    if(list.size() > 1) {                   
+	    	ServerMessage value = list.remove(0);
+	        reverse(list);
+	        list.add(value);
+	    }
+	    return list;
+	}
 }

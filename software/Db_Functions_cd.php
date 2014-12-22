@@ -65,7 +65,7 @@ class Db_Functions_cd{
 
     function saveComplaint($image_path,$aciklama,$lat,$long,$kategori_id,$kullanici_id,$lokasyon_id){
 
-        $result = mysql_query("INSERT INTO sikayet (sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,kategori_id,kullanici_id,lokasyon_id,confirmed) VALUES ('$image_path','$aciklama','$lat','$long','$kategori_id','$kullanici_id','$lokasyon_id','0')") or die(mysql_error());
+        $result = mysql_query("INSERT INTO sikayet (sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,kategori_id,kullanici_id,lokasyon_id) VALUES ('$image_path','$aciklama','$lat','$long','$kategori_id','$kullanici_id','$lokasyon_id')") or die(mysql_error());
 
         if($result){
 
@@ -75,19 +75,111 @@ class Db_Functions_cd{
 
         }
     }
+	   function addComplaint($kullanici_email,$kullanici_id,$sikayet_fotograf,$sikayet_aciklama,$sikayet_latitude,$sikayet_longitude,$sikayet_kategori_id, $sikayet_onay,$sikayet_onay_aciklama,$sikayet_tarih){
 
-    function getUsers(){
-        $result = mysql_query("SELECT * FROM kullanici_bilgileri WHERE 1") or die(mysql_error());
+	$result = mysql_query("INSERT INTO sikayet (kullanici_email,kullanici_id,sikayet_fotograf,sikayet_aciklama,sikayet_latitude,sikayet_longitude,sikayet_kategori_id,sikayet_onay,sikayet_onay_aciklama,sikayet_tarih) VALUES ('$kullanici_email','$kullanici_id','$sikayet_fotograf','$sikayet_aciklama','$sikayet_latitude','$sikayet_longitude','$sikayet_kategori_id', '$sikayet_onay','$sikayet_onay_aciklama','$sikayet_tarih')") or die(mysql_error());
 
-        while($row = mysql_fetch_array($result))
-        {
-            echo "<tr><td>".$row['kullanici_id']."</td><td>".$row['kullanici_adi']."</td><td>".$row['kullanici_soyadi']."</td><td>".$row['kullanici_mail']."</td><td>".$row['kullanici_telefon']."</td>
-            <td><a  class=\"btn btn-danger\" href=\"users.php?id=".$row['kullanici_id']."\">Sil</a></td></tr>";
+
+        //$query = mysql_num_rows($result);
+
+        	if($result){
+            // get user details
+            //$uid = mysql_insert_id(); // last inserted id
+           // $result = mysql_query("SELECT * FROM kullanici_bilgileri WHERE kullanici_id = $uid");
+            // return user details
+            return $result;//mysql_fetch_array($result);
+        } else {
+            return false;
+        
         }
+
     }
 
-
+    public function getMyComplaints($mail){
+        
+        $result =  mysql_query("SELECT * FROM sikayet WHERE kullanici_email = '$mail'") or die(mysql_error());
+        $query = mysql_num_rows($result);
+        
+        if($result && $query > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }     
+    }
+    public function getApprovedComplaints($onay){
+        
+        $result =  mysql_query("SELECT * FROM sikayet WHERE sikayet_onay = '$onay'") or die(mysql_error());
+        $query = mysql_num_rows($result);
+        
+        if($result && $query > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }     
+    }
+    //NEW METHODS*****************************************************************************************************
+    //ADDED IN 21.12.2014
+    public function getWaitingComplaints(){
+        
+        $result =  mysql_query("SELECT * FROM sikayet WHERE sikayet_onay = 'waiting'") or die(mysql_error());
+        $query = mysql_num_rows($result);
+        
+        if($result && $query > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }     
+    }
+    //ADDED IN 21.12.2014
+    public function updateCompaintStatus($idsikayet, $sikayet_onay, $sikayet_onay_aciklama){
+        
+        $result = mysql_query("UPDATE sikayet SET sikayet_onay = '$sikayet_onay' , sikayet_onay_aciklama = '$sikayet_onay_aciklama' 
+                    WHERE idsikayet = '$idsikayet'");
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }     
+    }
+    public function updateUserPassword($kullanici_id, $kullanici_mail, $kullanici_yeni_sifre){
+        
+        $result = mysql_query("UPDATE kullanici_bilgileri SET kullanici_sifre = '$kullanici_yeni_sifre' 
+                    WHERE kullanici_id = '$kullanici_id' and kullanici_mail = '$kullanici_mail'");
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }     
+    }
+    public function updateUserInfo($kullanici_id, $kullanici_mail, $kullanici_telefon){
+        
+        $result = mysql_query("UPDATE kullanici_bilgileri SET kullanici_telefon = '$kullanici_telefon' 
+                    WHERE kullanici_id = '$kullanici_id' and kullanici_mail = '$kullanici_mail'");
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }     
+    }   
+    public function getComplaintsViaCategory($sikayet_kategori_id){
+        
+        $result =  mysql_query("SELECT * FROM sikayet WHERE sikayet_kategori_id = '$sikayet_kategori_id' and sikayet_onay = 'onaylandi'") or die(mysql_error());
+        $query = mysql_num_rows($result);
+        
+        if($result && $query > 0){
+            return $result;
+        }
+        else{
+            return false;
+        }     
+    }
+    //*****************************************************************************************************************
 	
 }
 ?>
-db

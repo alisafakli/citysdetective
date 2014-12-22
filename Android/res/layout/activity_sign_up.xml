@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/CDgreen"
+
     android:gravity="bottom"
     android:orientation="vertical"
+    android:background="@drawable/layoutborder1"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,6 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        
         android:orientation="vertical" >
 
         <LinearLayout
@@ -47,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:inputType="textPersonName"
                     android:textColor="@color/beyaz" />
             </LinearLayout>
@@ -85,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:textColor="@color/beyaz" />
             </LinearLayout>
         </LinearLayout>
@@ -121,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/beyaz" />
             </LinearLayout>
@@ -158,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:inputType="textPassword"
                     android:textColor="@color/beyaz" />
             </LinearLayout>
@@ -195,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:inputType="textPassword"
                     android:textColor="@color/beyaz" />
             </LinearLayout>
@@ -232,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layoutborder1"
+                    android:background="@drawable/layoutborder5signupedittext"
                     android:inputType="phone"
                     android:textColor="@color/beyaz" />
             </LinearLayout>

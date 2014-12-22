@@ -11,8 +11,8 @@
 
             <padding android:bottom="5dp" android:left="5dp" android:right="5dp" android:top="5dp" />
             
-            <gradient android:startColor="#009666"
-                android:endColor="#005d3f"
+            <gradient android:startColor="#4792ef"
+                android:endColor="#4792ef"
                 android:angle="270" />
         </shape></item>  
     
