@@ -179,6 +179,65 @@ class Db_Functions_cd{
             return false;
         }     
     }
+	public function resetPassword($kul_email){
+
+		$check = mysql_query("SELECT kullanici_sifre FROM kullanici_bilgileri WHERE kullanici_mail = '$kul_email' ")or 		die(mysql_error());
+        $row = mysql_fetch_array($check);
+        $sifre = $row["kullanici_sifre"];
+
+		require_once("class.phpmailer.php");
+
+
+		// echo $name,$email,$message;
+	# PHPMailer class tanımla
+		$mail = new PHPMailer();
+		$mail->CharSet="utf-8";
+	// Classa SMTP başlat
+		$mail->IsSMTP();
+
+	// Test / Gerçek işlem
+		$mail->SMTPDebug = 0;
+
+	// SMTP Authentication aktif et
+		$mail->SMTPAuth = true;
+
+	//SMTP Server
+		$mail->Host = "webmail.safakli.com";
+
+	// Port SMTP Sunucu 25 / 587
+		$mail->Port = 587;
+
+	// SMTP kullanıcı adı
+		$mail->Username = "citydetective@safakli.com";
+
+	// SMTP kullanıcı şifre
+		$mail->Password = "sw_cd_123";
+
+	// gönderen hesap
+		$mail->SetFrom("citydetective@safakli.com", "City's Detective");
+
+	// Mail konusu
+		$mail->Subject = "City's Detective Giriş Şifreniz";
+
+	// Mail içeriği
+		$body = "<p><h3>City's Detective Şifre Yenileme İsteği Gönderdiniz,Şifreniz:".$sifre."</h3></p></br>";
+		$mail->MsgHTML($body);
+
+	// hedef adresi ekle
+		$to = $kul_email;
+		$mail->AddAddress($to, "City's Detective");
+	// Maili gönder
+		if(!$mail->Send())
+		{
+			echo "Mailer Hata: " . $mail->ErrorInfo;
+			return false;
+			//echo "<script>window.location = './iletisim.php';</script>";
+		}
+		else
+		{
+			return true;
+		}		
+	}
     //*****************************************************************************************************************
 	
 }

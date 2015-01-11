@@ -1,7 +1,8 @@
 <?php
 require_once 'Db_Functions_cd.php';
 $db = new Db_Functions_cd();
-error_reporting(0)
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,37 +27,48 @@ error_reporting(0)
 
     <ul class="nav nav-pills">
         <li role="presentation" ><a href="complaint.php">Şikayetler</a></li>
-        <li role="presentation" ><a href="verified_complaint.php">Onaylanmış Şikayetler</a></li>
-
-        <li role="presentation" class="active"><a href="users.php">Kullanıcılar</a></li>
+        <li role="presentation" class="active"><a href="verified_complaint.php">Onaylanmış Şikayetler</a></li>
+        <li role="presentation"><a href="users.php">Kullanıcılar</a></li>
         <li role="presentation" ><a href="push.php">Push Notifiaction</a></li>
 
     </ul>
 
-
     <?php
-    if($_GET['id']){
-        $id = $_GET['id'];
-        $result = mysql_query("DELETE FROM kullanici_bilgileri WHERE kullanici_id='$id' ") or die(mysql_error());
-        if($result){
-            echo "<div class=\"alert alert-danger\" role=\"alert\">Kullanıcı Silindi</div>";
-            echo " <script type=\"text/JavaScript\">
-        setTimeout(\"location.href = 'users.php';\",1500);
-        </script>";
-        } else {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">Hata Oluştu !! </div>";
-        }
-    }
-    $result = mysql_query("SELECT * FROM kullanici_bilgileri WHERE 1") or die(mysql_error());
+
+
+    $result = mysql_query("SELECT * FROM sikayet WHERE sikayet_onay='onaylandi'") or die(mysql_error());
     echo "<br><table class='table'>";
-    echo "<tr><td>Kullanıcı ID</td><td>Adı</td><td>Soyadı</td><td>Mail</td><td>Telefon</td><td>İşlem</td></tr>";
+    echo "<tr><td>Şikayet ID</td><td>Fotoğraf</td><td>Açıklama</td><td>Email</td><td>Kategori</td><td>Tarih</td></tr>";
     while($row = mysql_fetch_array($result))
     {
-        echo "<tr><td>".$row['kullanici_id']."</td><td>".$row['kullanici_adi']."</td><td>".$row['kullanici_soyadi']."</td><td>".$row['kullanici_mail']."</td><td>".$row['kullanici_telefon']."</td>
-            <td><a  class=\"btn btn-danger\" href=\"users.php?id=".$row['kullanici_id']."\">Sil</a></td></tr>";
+        switch ($row['sikayet_kategori_id']){
+            case 0:
+                $kategori_type = "Trafik";
+                break;
+            case 1:
+                $kategori_type = "Işıklandırma";
+                break;
+            case 2:
+                $kategori_type = "Atık";
+                break;
+            case 3:
+                $kategori_type = "Sokak Hayvanları";
+                break;
+            case 4:
+                $kategori_type = "Engelli Hakları";
+                break;
+
+            default:
+                $kategori_type = "Diğer";
+        }
+        echo "<tr><td>".$row['idsikayet']."</td><td><img width=\"200px\" height=\"300px\" src=\"upload2/uploads/".$row['sikayet_fotograf']."\"></td><td>".$row['sikayet_aciklama']."</td><td>".$row['kullanici_email']."</td><td>".$kategori_type."</td><td>".$row['sikayet_tarih']."</td>
+            </tr>";
     }
     echo "</table>";
     ?>
+
+
+
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

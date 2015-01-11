@@ -271,9 +271,25 @@ if (isset($_POST['tag']) && $_POST['tag'] != '') {
             echo json_encode($response);
         }
     }
+	
+	else if($tag == 'resetPassword'){
+		
+		 $kullanici_email = $_POST['kullanici_email']; 
+		 $user = $db->resetPassword($kullanici_email);
+		 
+		 if ($user) {
+                $response["success"] = 1;
+                echo json_encode($response);
+         } else {
+                $response["error"] = 1;
+                $response["error_msg"] = "Error!! Cannot Add";
+                echo json_encode($response);
+         }
+		   
+	}
 	/*
     *
-    *NEW METHODS 
+    *NEW METHODS
     */
 		
     //
