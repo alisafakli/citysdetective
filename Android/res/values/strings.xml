@@ -64,5 +64,6 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_my_complaint_location">Location</string>
+    <string name="title_activity_forgot_password">Forgot Password</string>
 
 </resources>

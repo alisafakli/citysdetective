@@ -115,7 +115,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.example.citydetective.GCMIntentService" />
+        <service android:name=".GCMIntentService" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -125,8 +125,13 @@
             android:value="4242000" />
 
         <activity
-            android:name="com.example.citydetective.location.MyComplaintLocation"
+            android:name=".location.MyComplaintLocation"
             android:label="@string/title_activity_my_complaint_location"
+            android:theme="@style/myCoolDialog" >
+        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
             android:theme="@style/myCoolDialog" >
         </activity>
     </application>

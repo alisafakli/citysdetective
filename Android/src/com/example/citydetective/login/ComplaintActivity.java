@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,7 +41,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.citydetective.MainActivity;
 import com.example.citydetective.R;
 import com.example.citydetective.location.LocationActivity;
 import com.example.citydetective.webservice.DatabaseHandler;
@@ -101,7 +102,7 @@ public class ComplaintActivity extends ActionBarActivity {
 		});
 
 		btnSend = (Button) findViewById(R.id.btnSend);
-		
+
 		btnSend.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -117,12 +118,12 @@ public class ComplaintActivity extends ActionBarActivity {
 				else{
 					Toast.makeText(getApplicationContext(), "Please add a photo!", Toast.LENGTH_LONG).show();
 				}
-				
+
 			}
 		});
 		spinner = (Spinner) findViewById(R.id.category_spinner);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.category_array, android.R.layout.simple_spinner_item);
+				R.array.category_array, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 	}
@@ -130,45 +131,77 @@ public class ComplaintActivity extends ActionBarActivity {
 	void showYesNoDialog(){
 		final String url = IMAGE_UPLOAD_URL;
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-		        switch (which){
-		        case DialogInterface.BUTTON_POSITIVE:
-		            //Yes button clicked
-		        	new BackgroundUploader(url, file).execute();
-		            break;
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which){
+				case DialogInterface.BUTTON_POSITIVE:
+					//Yes button clicked
+					new BackgroundUploader(url, file).execute();
+					break;
 
-		        case DialogInterface.BUTTON_NEGATIVE:
-		            //No button clicked
-		            break;
-		        }
-		    }
+				case DialogInterface.BUTTON_NEGATIVE:
+					//No button clicked
+					break;
+				}
+			}
 		};
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("Are you sure you want to send this complaint?").setPositiveButton("Yes", dialogClickListener)
-		    .setNegativeButton("No", dialogClickListener).show();
+		.setNegativeButton("No", dialogClickListener).show();
 		//builder.setView(R.drawable.layoutborder1);
 	}
-	
+
 	static final int REQUEST_IMAGE_CAPTURE = 2;
 
 	private void dispatchTakePictureIntent() {
-	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-	    }
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+		}
 	}
 	String extStorageDirectory = "";
 	Bitmap bitmap=null;
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-
+		Bitmap ResizedBitmap = null;
 		if (resultCode == RESULT_OK && requestCode == SELECT) {
 			Uri image = data.getData();
 			try {
+//				bitmap = decodeUri(image);
+//				iv.setImageBitmap(bitmap);
 				bitmap = Images.Media.getBitmap(getContentResolver(), image);
+				int width = bitmap.getWidth();
+				int height = bitmap.getHeight();
+				int newWidth = 0;
+				int newHeight = 0;
+				if(width > 1200 || height > 1200){
+					if(width>height){
+						int rate = width/1200;
+						newWidth = width/rate;
+						newHeight = height/rate;
+
+						Matrix matrix = new Matrix();
+						matrix.postScale(newWidth, newHeight);
+//						ResizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+//								width, height, matrix, true);
+						ResizedBitmap = Bitmap.createScaledBitmap(bitmap,(int)(bitmap.getWidth()/rate), (int)(bitmap.getHeight()/rate), true);
+
+					}else{
+						int rate = height/1200;
+						newWidth = width/rate;
+						newHeight = height/rate;
+						
+						Matrix matrix = new Matrix();
+						matrix.postScale(newWidth, newHeight);
+//						ResizedBitmap  = Bitmap.createBitmap(bitmap, 0, 0,
+//								width, height, matrix, true);
+						ResizedBitmap = Bitmap.createScaledBitmap(bitmap,(int)(bitmap.getWidth()/rate), (int)(bitmap.getHeight()/rate), true);
+
+					}
+				}
+
 			}
 			catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -190,7 +223,7 @@ public class ComplaintActivity extends ActionBarActivity {
 			file = new File(extStorageDirectory, fileName);
 			try {
 				outStream = new FileOutputStream(file);
-				bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+				ResizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
 				outStream.flush();
 				outStream.close();
 			}
@@ -198,20 +231,20 @@ public class ComplaintActivity extends ActionBarActivity {
 				e.printStackTrace();
 			}
 
-			iv.setImageBitmap(bitmap);
+			iv.setImageBitmap(ResizedBitmap);
 			uploadFilePath = extStorageDirectory;
 			uploadFileName = fileName;
 			tv.setText(uploadFilePath);
 			//tv.setText(extStorageDirectory);
 		}
 		else if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-	        Bundle extras = data.getExtras();
-//	        bitmap = (Bitmap) extras.get("data");
-//	        iv.setImageBitmap(imageBitmap);
+			Bundle extras = data.getExtras();
+			//	        bitmap = (Bitmap) extras.get("data");
+			//	        iv.setImageBitmap(imageBitmap);
 			//Uri image = data.getData();
 			try {
 				bitmap = (Bitmap) extras.get("data");
-		        iv.setImageBitmap(bitmap);
+				iv.setImageBitmap(bitmap);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -243,16 +276,40 @@ public class ComplaintActivity extends ActionBarActivity {
 			uploadFileName = fileName;
 			tv.setText(uploadFilePath);
 		}
-		
+
 		//LOCATION
 		else if(requestCode == REQUEST_LOCATION && resultCode == RESULT_OK){
 			comp_Lat =data.getStringExtra("comp_Lat");
 			comp_Lng =data.getStringExtra("comp_Lng");
-			
+
 			tvLocation.setText("Lat: " + comp_Lat +"\n"+
-						"Lng: "+ comp_Lng);
+					"Lng: "+ comp_Lng);
 		}
 	}
+	private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(
+                getContentResolver().openInputStream(selectedImage), null, o);
+
+        final int REQUIRED_SIZE = 100;
+
+        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+        int scale = 1;
+        while (true) {
+            if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE) {
+                break;
+            }
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(
+                getContentResolver().openInputStream(selectedImage), null, o2);
+    }
 
 	ProgressDialog dialog;
 	class BackgroundUploader extends AsyncTask<Object, Integer,String> {
@@ -312,7 +369,7 @@ public class ComplaintActivity extends ActionBarActivity {
 
 					// open a URL connection to the Servlet
 					FileInputStream fileInputStream = new FileInputStream(sourceFile);
-					
+
 					URL url = new URL(upLoadServerUri);
 
 					// Open a HTTP  connection to  the URL
@@ -350,16 +407,16 @@ public class ComplaintActivity extends ActionBarActivity {
 						bufferSize = Math.min(bytesAvailable, maxBufferSize);
 						bytesRead = fileInputStream.read(buffer, 0, bufferSize); 
 						int bytesavail = bytesAvailable;
-						
+
 						//int process = (bytesread2 * 100)/bytesavail;
 						//publishProgress(process);
 						Log.e("bytesRead:" ,Integer.toString(bytesRead));
-	
+
 						Log.e("bytesAvailable:" ,Integer.toString(bytesAvailable));
-						
+
 						//Log.e("process:" ,Integer.toString(process));
-//						int process = bytesRead/bufferSize * 100;
-//						publishProgress(process);
+						//						int process = bytesRead/bufferSize * 100;
+						//						publishProgress(process);
 
 					}
 
@@ -382,7 +439,7 @@ public class ComplaintActivity extends ActionBarActivity {
 							public void run() {
 
 								String msg = "File Upload Completed."+uploadFileName+"\n\n"+
-								"Check http://citydetective.safakli.com/upload2/uploads/"+uploadFileName ;
+										"Check http://citydetective.safakli.com/upload2/uploads/"+uploadFileName ;
 
 								tv.setText(msg);
 								Toast.makeText(getApplicationContext(), "File Upload Complete.", 
@@ -395,16 +452,16 @@ public class ComplaintActivity extends ActionBarActivity {
 					fileInputStream.close();
 					dos.flush();
 					dos.close();
-					
-//		            user.put(KEY_ID, cursor.getString(0));
-//		            user.put(KEY_NAME, cursor.getString(1));
-//		            user.put(KEY_SURNAME, cursor.getString(2));
-//		            user.put(KEY_EMAIL, cursor.getString(3));
-//		            user.put(KEY_TELEPHONE, cursor.getString(4));
-					
+
+					//		            user.put(KEY_ID, cursor.getString(0));
+					//		            user.put(KEY_NAME, cursor.getString(1));
+					//		            user.put(KEY_SURNAME, cursor.getString(2));
+					//		            user.put(KEY_EMAIL, cursor.getString(3));
+					//		            user.put(KEY_TELEPHONE, cursor.getString(4));
+
 					//send data to web services
 					sendDataToWebService();
-					
+
 
 				} catch (MalformedURLException ex) {
 
@@ -441,8 +498,8 @@ public class ComplaintActivity extends ActionBarActivity {
 			} // End else block 
 		}
 		String error_msg;
-	    private static final String KEY_ID = "id";
-	    private static final String KEY_EMAIL = "email";
+		private static final String KEY_ID = "id";
+		private static final String KEY_EMAIL = "email";
 		private void sendDataToWebService() {
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			String id = db.getUserDetails().get(KEY_ID).toString();
@@ -450,45 +507,45 @@ public class ComplaintActivity extends ActionBarActivity {
 			String category_id = Integer.toString(spinner.getSelectedItemPosition());
 			UserFunctions userFunctions = new UserFunctions();
 			JSONObject json2 = userFunctions.addComplaint(email, id, uploadFileName, et.getText().toString(), comp_Lat, comp_Lng, category_id, "waiting", "");
-					
+
 			Log.e("JSON Parser", json2.toString());
 			try {
 				if (json2.getString("success") != null) {
 					String res = json2.getString("success");
 					String errormsg = json2.getString("error");
 					if (Integer.parseInt(res) == 1 && Integer.parseInt(errormsg) != 1 ) {
-						
+
 						runOnUiThread(new Runnable(){
-						    public void run() {
-						    	try {
+							public void run() {
+								try {
 									Toast.makeText(getApplicationContext(), "Thank your for your complaint." , Toast.LENGTH_LONG).show();
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}}});
 						dialog.dismiss();
-						
+
 
 						finish();
 					}else{
 						error_msg = json2.getString("error_msg");
 						dialog.dismiss();
 						runOnUiThread(new Runnable(){
-						    public void run() {
-						    	try {
+							public void run() {
+								try {
 									Toast.makeText(getApplicationContext(), error_msg, Toast.LENGTH_LONG).show();
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-						    }
+							}
 						});}}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
-			
+
+
 		}
 
 		@Override

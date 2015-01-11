@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.citydetective.location.MyComplaintLocation;
 import com.example.citydetective.webservice.DatabaseHandler;
 import com.example.citydetective.webservice.UserFunctions;
 
@@ -30,6 +31,7 @@ public class MainActivity extends ActionBarActivity  {
 		etEmail.setText("ali@safakli.com");
 		etPassword = (EditText)findViewById(R.id.etPassword);
 		etPassword.setText("123123123");
+		
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new OnClickListener() {	
 			@Override
@@ -48,7 +50,8 @@ public class MainActivity extends ActionBarActivity  {
 			@Override
 			public void onClick(View v) {
 			
-			
+				Intent intent=new Intent(getApplicationContext(),ForgotPasswordActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				 getApplicationContext().startActivity(intent);
 				
 			}
 		});

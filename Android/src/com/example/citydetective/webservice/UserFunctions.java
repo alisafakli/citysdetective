@@ -30,7 +30,7 @@ public class UserFunctions {
 	private static String getComplaintsViaCategory_URL ="http://citydetective.safakli.com/";
 	private static String update_user_info_URL ="http://citydetective.safakli.com/";
 	private static String update_password_URL ="http://citydetective.safakli.com/";
-
+	private static String reset_password_URL ="http://citydetective.safakli.com/";
 	// User Info Update Tag
 	private static String login_tag = "login";
 	private static String signup_tag = "signup";
@@ -41,7 +41,7 @@ public class UserFunctions {
 	private static String getComplaintsViaCategory_tag = "getComplaintsViaCategory";
 	private static String update_user_info_tag = "update_user_info";
 	private static String update_password_tag = "update_password";
-
+	private static String reset_password_tag = "resetPassword";
 	// constructor
 	public UserFunctions() {
 		jsonParser = new JSONParser();
@@ -155,6 +155,16 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("kullanici_mail", kullanici_mail));
 		params.add(new BasicNameValuePair("kullanici_yeni_sifre", kullanici_yeni_sifre));
 		JSONObject json = jsonParser.getJSONFromUrl(update_password_URL, params);
+		// return json
+		// Log.e("JSON", json.toString());
+		return json;
+	}
+	public JSONObject resetUserPassword(String kullanici_mail) {
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", reset_password_tag));
+		params.add(new BasicNameValuePair("kullanici_email", kullanici_mail));
+		JSONObject json = jsonParser.getJSONFromUrl(reset_password_URL, params);
 		// return json
 		// Log.e("JSON", json.toString());
 		return json;
